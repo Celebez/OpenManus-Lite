@@ -80,8 +80,7 @@ class Message(BaseModel):
             message["name"] = self.name
         if self.tool_call_id is not None:
             message["tool_call_id"] = self.tool_call_id
-        if self.base64_image is not None:
-            message["base64_image"] = self.base64_image
+        # base64_image is internal-only — never send to the API
         return message
 
     @classmethod
@@ -119,7 +118,11 @@ class Message(BaseModel):
         **kwargs,
     ):
         formatted_calls = [
-            {"id": call.id, "function": call.function.model_dump(), "type": "function"}
+            ToolCall(
+                id=call.id,
+                function=Function(name=call.function.name, arguments=call.function.arguments),
+                type="function",
+            )
             for call in tool_calls
         ]
         return cls(
