@@ -390,20 +390,31 @@ pip install -r requirements.txt
 cp config/config.example.toml config/config.toml
 ```
 
-Edit `config.toml`:
+Edit `config.toml` with **your own AI provider** (OpenManus-Lite is
+OpenAI-compatible, so any provider that exposes an OpenAI-style `/v1` endpoint
+works — you do **not** need to run a local server):
 
 ```toml
 [llm]
+# OpenAI (default)
 model = "gpt-4o"
 base_url = "https://api.openai.com/v1"
 api_key = "sk-..."      # your key
+
+# Or NVIDIA NIM:
+# model = "nvidia/nemotron-3-super-120b-a12b"
+# base_url = "https://integrate.api.nvidia.com/v1"
+# api_key = "nvapi-..."
+
+# Or any other OpenAI-compatible provider — just set base_url + api_key + model
 max_tokens = 4096
 temperature = 0.0
 api_type = "openai"
 ```
 
-To use a local or alternative provider, just change `base_url` / `model`
-(e.g. `http://localhost:8000/v1` for vLLM, or any OpenAI-compatible gateway).
+> You only need a `base_url` / `api_key` / `model` for the provider **you**
+> already have an account with. A local server (e.g. vLLM on
+> `http://localhost:8000/v1`) is optional, not required.
 
 ## Usage
 
