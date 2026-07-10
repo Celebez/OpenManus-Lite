@@ -1,11 +1,9 @@
 """Manus: the default general-purpose agent."""
-from typing import List, Optional
 
 from pydantic import Field, model_validator
 
 from app.agent.toolcall import ToolCallAgent
 from app.config import config
-from app.logger import logger
 from app.prompt.manus import NEXT_STEP_PROMPT, SYSTEM_PROMPT
 from app.tool import Terminate, ToolCollection
 from app.tool.ask_human import AskHuman

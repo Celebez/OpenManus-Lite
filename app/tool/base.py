@@ -5,7 +5,6 @@ from typing import Any, Dict, Optional, Union
 
 from pydantic import BaseModel, Field
 
-from app.logger import logger
 
 
 class ToolResult(BaseModel):

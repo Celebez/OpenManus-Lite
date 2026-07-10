@@ -1,5 +1,4 @@
 """Ask the human for input (in interactive mode)."""
-from typing import Any
 
 from app.tool.base import BaseTool, ToolResult
 

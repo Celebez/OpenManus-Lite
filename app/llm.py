@@ -1,11 +1,9 @@
 """LLM wrapper around an OpenAI-compatible async chat client."""
-from typing import List, Optional, Union
+from typing import List, Optional
 
 from openai import AsyncOpenAI
 
 from app.config import config
-from app.exceptions import TokenLimitExceeded
-from app.logger import logger
 from app.schema import (
     ROLE_VALUES,
     Function,

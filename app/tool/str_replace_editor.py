@@ -1,7 +1,5 @@
 """View, create, and edit files (str_replace_editor)."""
-import os
 from pathlib import Path
-from typing import Any
 
 from app.config import config
 from app.tool.base import BaseTool, ToolResult

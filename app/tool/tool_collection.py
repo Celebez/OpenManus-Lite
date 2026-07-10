@@ -26,6 +26,8 @@ class ToolCollection:
             return result
         except ToolError as e:
             return ToolFailure(error=e.message)
+        except Exception as e:
+            return ToolFailure(error=f"{type(e).__name__}: {e}")
 
     def get_tool(self, name: str) -> BaseTool:
         return self.tool_map.get(name)

@@ -1,5 +1,4 @@
 """Expose the LLM itself as a tool (lets the agent call the model directly)."""
-from typing import Any
 
 from app.llm import LLM
 from app.tool.base import BaseTool, ToolResult

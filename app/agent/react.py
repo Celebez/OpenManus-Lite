@@ -1,6 +1,5 @@
 """ReAct agent: alternate between thinking and acting until finished."""
 from app.agent.base import BaseAgent
-from app.logger import logger
 
 
 class ReActAgent(BaseAgent):

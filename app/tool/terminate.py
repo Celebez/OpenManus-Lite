@@ -1,5 +1,4 @@
 """Terminate the agent run."""
-from typing import Any
 
 from app.tool.base import BaseTool, ToolResult
 
