@@ -496,6 +496,48 @@ collection when subclassing.
 
 ---
 
+## Running on Android (Termux)
+
+OpenManus-Lite runs fine on an Android phone via **Termux**. You need:
+- Python 3.10+ (Termux ships 3.11)
+- An OpenAI-compatible API key from **any** provider (you bring your own)
+
+Install steps in Termux:
+
+```bash
+# 1. Install prerequisites
+pkg update && pkg install -y python git
+
+# 2. Get the code
+git clone https://github.com/Celebez/OpenManus-Lite.git
+cd OpenManus-Lite
+
+# 3. Create a virtualenv and install dependencies
+python -m venv .venv
+. .venv/bin/activate
+pip install -r requirements.txt
+
+# 4. (Optional) Browser automation needs a Chromium download
+#    Skip this on low-end phones — the agent still works for code/research.
+pip install playwright && python -m playwright install chromium
+
+# 5. Configure (interactive wizard — auto-detects your provider's models)
+python main.py --setup
+
+# 6. Run
+python main.py
+```
+
+Termux notes:
+- **Code / shell / file tools** and the **multi-agent flow** run normally and are lightweight.
+- **Browser automation** (Playwright) is the heavy part: it downloads ~150 MB of
+  Chromium and needs RAM. On a weak phone, leave it out — the agent still
+  handles coding and research tasks through the LLM API.
+- Everything is **self-contained**: no local server required, just your provider's
+  `base_url` + `api_key` + `model`.
+
+---
+
 ## Comparison with OpenManus
 
 | Feature | OpenManus | OpenManus-Lite |
@@ -509,6 +551,7 @@ collection when subclassing.
 | Docker / Daytona sandbox | ✅ | ⚙️ config stub |
 | Token accounting | ✅ detailed | ❌ minimal |
 | Interactive setup wizard | ❌ | ✅ (auto-detect models from any provider) |
+| Runs on VPS / desktop / Termux (Android) | ✅ | ✅ (self-contained, no local server) |
 | Lines of code | ~thousands | ~1,200 |
 | Goal | Production agent | Learning scaffold |
 
@@ -516,16 +559,14 @@ collection when subclassing.
 
 ## Limitations
 
-- No built-in browser, so web tasks must go through `bash`/`python_execute`.
-- No MCP integration — tools are in-process only.
 - `config.toml` (with your API key) must never be committed; it is gitignored.
-- Like any LLM agent, results depend on the model's capabilities and the
-  prompts; the loop can hit `max_steps` without finishing.
+- Browser automation (Playwright) downloads Chromium and needs more RAM — skip it
+  on low-end devices; the rest of the agent still works.
+- Like any LLM agent, results depend on the model's capabilities and the prompts;
+  the loop can hit `max_steps` without finishing.
 
 ## Roadmap
 
-- [ ] Add an optional MCP client.
-- [ ] Add a browser tool (Playwright-backed).
 - [ ] Optional Docker sandbox for `python_execute` / `bash`.
 - [ ] Token-limit guardrails in `LLM`.
 - [ ] Streaming progress events for UIs.
