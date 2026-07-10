@@ -16,9 +16,6 @@
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"/></a>
-  <a href="LICENSES/LICENSE.apache-2.0"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License: Apache 2.0"/></a>
-  <a href="LICENSES/LICENSE.bsd-3-clause"><img src="https://img.shields.io/badge/License-BSD%203--Clause-blue.svg" alt="License: BSD 3-Clause"/></a>
-  <a href="LICENSES/LICENSE.gpl-3.0"><img src="https://img.shields.io/badge/License-GPL%203.0-brightgreen.svg" alt="License: GPL 3.0"/></a>
   <img src="https://img.shields.io/badge/Open%20Source-Yes-green.svg" alt="Open Source: Yes"/>
   <img src="https://img.shields.io/badge/Python-3.10%2B-blue.svg" alt="Python 3.10+"/>
   <a href="https://github.com/Celebez/OpenManus-Lite"><img src="https://img.shields.io/github/stars/Celebez/OpenManus-Lite?style=social" alt="GitHub stars"/></a>
@@ -60,24 +57,6 @@ What "open source" means here, concretely:
 | [CONTRIBUTING.md](CONTRIBUTING.md) | How to contribute |
 | [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) | Community standards (Contributor Covenant) |
 | [README.md](README.md) | Full documentation |
-
-### Available licenses
-
-OpenManus-Lite is distributed under the **MIT License** by default. If your
-project requires different terms, the following alternative licenses are also
-provided in the [`LICENSES/`](LICENSES) directory — pick the one that fits your
-use case:
-
-| License | File | Type | Highlights |
-|---------|------|------|-----------|
-| MIT | [LICENSE](LICENSE) | Permissive | Short, maximum freedom, no patent clause. **Default.** |
-| Apache-2.0 | [LICENSES/LICENSE.apache-2.0](LICENSES/LICENSE.apache-2.0) | Permissive | Adds explicit patent grant + attribution notices. |
-| BSD-3-Clause | [LICENSES/LICENSE.bsd-3-clause](LICENSES/LICENSE.bsd-3-clause) | Permissive | Like MIT, bars use of contributor names for endorsement. |
-| GPL-3.0 | [LICENSES/LICENSE.gpl-3.0](LICENSES/LICENSE.gpl-3.0) | Copyleft | Strong copyleft; derivative works must stay GPL-3.0. |
-
-> Note: These are provided as options. Unless you explicitly state otherwise,
-> the project itself is released under **MIT**. Choose one license and replace
-> the root `LICENSE` file if you redistribute under different terms.
 
 ---
 
