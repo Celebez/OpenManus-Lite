@@ -16,6 +16,9 @@
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"/></a>
+  <a href="LICENSES/LICENSE.apache-2.0"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License: Apache 2.0"/></a>
+  <a href="LICENSES/LICENSE.bsd-3-clause"><img src="https://img.shields.io/badge/License-BSD%203--Clause-blue.svg" alt="License: BSD 3-Clause"/></a>
+  <a href="LICENSES/LICENSE.gpl-3.0"><img src="https://img.shields.io/badge/License-GPL%203.0-brightgreen.svg" alt="License: GPL 3.0"/></a>
   <img src="https://img.shields.io/badge/Open%20Source-Yes-green.svg" alt="Open Source: Yes"/>
   <img src="https://img.shields.io/badge/Python-3.11%2B-blue.svg" alt="Python 3.11+"/>
   <a href="https://github.com/Celebez/OpenManus-Lite"><img src="https://img.shields.io/github/stars/Celebez/OpenManus-Lite?style=social" alt="GitHub stars"/></a>
