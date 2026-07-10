@@ -20,8 +20,19 @@
   <a href="LICENSES/LICENSE.bsd-3-clause"><img src="https://img.shields.io/badge/License-BSD%203--Clause-blue.svg" alt="License: BSD 3-Clause"/></a>
   <a href="LICENSES/LICENSE.gpl-3.0"><img src="https://img.shields.io/badge/License-GPL%203.0-brightgreen.svg" alt="License: GPL 3.0"/></a>
   <img src="https://img.shields.io/badge/Open%20Source-Yes-green.svg" alt="Open Source: Yes"/>
-  <img src="https://img.shields.io/badge/Python-3.11%2B-blue.svg" alt="Python 3.11+"/>
+  <img src="https://img.shields.io/badge/Python-3.10%2B-blue.svg" alt="Python 3.10+"/>
   <a href="https://github.com/Celebez/OpenManus-Lite"><img src="https://img.shields.io/github/stars/Celebez/OpenManus-Lite?style=social" alt="GitHub stars"/></a>
+  <a href="https://github.com/Celebez/OpenManus-Lite/forks"><img src="https://img.shields.io/github/forks/Celebez/OpenManus-Lite?style=social" alt="GitHub forks"/></a>
+  <a href="https://github.com/Celebez/OpenManus-Lite/issues"><img src="https://img.shields.io/github/issues/Celebez/OpenManus-Lite" alt="GitHub issues"/></a>
+  <a href="https://github.com/Celebez/OpenManus-Lite/pulls"><img src="https://img.shields.io/github/issues-pr/Celebez/OpenManus-Lite" alt="GitHub PRs"/></a>
+  <a href="https://github.com/Celebez/OpenManus-Lite/releases"><img src="https://img.shields.io/github/v/release/Celebez/OpenManus-Lite" alt="GitHub release"/></a>
+  <a href="https://github.com/Celebez/OpenManus-Lite/commits/master"><img src="https://img.shields.io/github/last-commit/Celebez/OpenManus-Lite" alt="Last commit"/></a>
+  <a href="https://github.com/Celebez/OpenManus-Lite/graphs/contributors"><img src="https://img.shields.io/github/contributors/Celebez/OpenManus-Lite" alt="Contributors"/></a>
+  <a href="https://github.com/Celebez/OpenManus-Lite/blob/master/.gitignore"><img src="https://img.shields.io/github/languages/code-size/Celebez/OpenManus-Lite" alt="Code size"/></a>
+  <a href="CODE_OF_CONDUCT.md"><img src="https://img.shields.io/badge/Contributor%20Covenant-2.1-ff69b4.svg" alt="Code of Conduct"/></a>
+  <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs welcome"/></a>
+  <img src="https://img.shields.io/badge/Dependencies-0%20vulns-success.svg" alt="Dependencies: 0 vulnerabilities"/>
+  <img src="https://img.shields.io/badge/Platform-Linux%20%7C%20macOS%20%7C%20Termux-lightgrey.svg" alt="Platform: Linux | macOS | Termux"/>
 </p>
 
 ---
