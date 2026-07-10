@@ -503,12 +503,13 @@ collection when subclassing.
 | Agent loop | ✅ think→act | ✅ think→act (identical shape) |
 | Tool calling | ✅ | ✅ |
 | Code / shell / file tools | ✅ | ✅ |
-| Browser automation | ✅ (Playwright) | ❌ (stub only) |
-| MCP server support | ✅ | ❌ |
-| Multi-agent flow | ✅ | ❌ |
+| Browser automation | ✅ (Playwright) | ✅ (Playwright) |
+| MCP server support | ✅ | ❌ (dropped by design) |
+| Multi-agent flow | ✅ | ✅ (supervisor + specialised sub-agents) |
 | Docker / Daytona sandbox | ✅ | ⚙️ config stub |
 | Token accounting | ✅ detailed | ❌ minimal |
-| Lines of code | ~thousands | ~1,000 |
+| Interactive setup wizard | ❌ | ✅ (auto-detect models from any provider) |
+| Lines of code | ~thousands | ~1,200 |
 | Goal | Production agent | Learning scaffold |
 
 ---
