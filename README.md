@@ -399,7 +399,7 @@ pip install -r requirements.txt
 
 ```bash
 cp config/config.example.toml config/config.toml
-## Configuration
+```
 
 OpenManus-Lite is OpenAI-compatible, so **you use your own AI provider** — you
 do **not** need to run a local server. There are two ways to configure it:

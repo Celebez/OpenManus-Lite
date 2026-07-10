@@ -1,7 +1,6 @@
 """Execute Python code in a restricted environment."""
 import asyncio
-import contextlib
-import io
+import sys
 
 from app.tool.base import BaseTool, ToolResult
 
@@ -24,23 +23,53 @@ class PythonExecute(BaseTool):
     }
 
     async def execute(self, code: str, timeout: int = 30) -> ToolResult:
-        try:
-            result = await asyncio.wait_for(
-                self._run(code), timeout=timeout
-            )
-            return self.success_response(result)
-        except asyncio.TimeoutError:
-            return self.fail_response(f"Execution timed out after {timeout}s")
-        except Exception as e:
-            return self.fail_response(f"Execution error: {str(e)}")
+        """Run code in a subprocess so it can be forcefully killed on timeout."""
+        import os
 
-    async def _run(self, code: str) -> str:
-        buf = io.StringIO()
-        local_ns: dict = {}
-        with contextlib.redirect_stdout(buf):
+        wrapper = (
+            "import sys, io, contextlib\n"
+            "buf = io.StringIO()\n"
+            f"code = {code!r}\n"
+            "try:\n"
+            "    tree = compile(code, '<exec>', 'exec')\n"
+            "except SyntaxError as e:\n"
+            "    print(f'SyntaxError: {e}')\n"
+            "    sys.exit(1)\n"
+            "local_ns = {}\n"
+            "with contextlib.redirect_stdout(buf):\n"
+            "    exec(tree, {}, local_ns)\n"
+            "sys.stdout.write(buf.getvalue())\n"
+        )
+
+        try:
+            proc = await asyncio.create_subprocess_exec(
+                sys.executable, "-c", wrapper,
+                stdout=asyncio.subprocess.PIPE,
+                stderr=asyncio.subprocess.PIPE,
+                preexec_fn=os.setsid if hasattr(os, "setsid") else None,
+            )
+        except Exception as e:
+            return self.fail_response(f"Failed to start subprocess: {e}")
+
+        try:
+            stdout, stderr = await asyncio.wait_for(
+                proc.communicate(), timeout=timeout
+            )
+        except asyncio.TimeoutError:
+            # Kill the entire process group (covers child forks)
             try:
-                tree = compile(code, "<exec>", "exec")
-                exec(tree, {}, local_ns)
-            except Exception as e:
-                buf.write(f"\n{e.__class__.__name__}: {e}\n")
-        return buf.getvalue() or "(no output)"
+                import signal
+                os.killpg(os.getpgid(proc.pid), signal.SIGKILL)
+            except (ProcessLookupError, PermissionError, OSError):
+                proc.kill()
+            await proc.wait()
+            return self.fail_response(f"Execution timed out after {timeout}s")
+
+        output = stdout.decode() if stdout else ""
+        err = stderr.decode() if stderr else ""
+
+        if proc.returncode != 0:
+            return self.fail_response(
+                f"{output}\n{err}".strip() or "(error, no output)"
+            )
+        return self.success_response(output.strip() or "(no output)")
