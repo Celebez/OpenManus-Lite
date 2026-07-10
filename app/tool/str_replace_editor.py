@@ -25,9 +25,17 @@ class StrReplaceEditor(BaseTool):
 
     def _resolve(self, path: str) -> Path:
         p = Path(path)
-        if not p.is_absolute():
-            p = config.workspace_root / path
-        return p
+        if p.is_absolute():
+            return p
+        # Avoid double-prefixing when the model already includes the workspace dir
+        try:
+            p.relative_to(config.workspace_root)
+            return config.workspace_root / path
+        except ValueError:
+            pass
+        if config.workspace_root.name and path.startswith(config.workspace_root.name + "/"):
+            return config.workspace_root / path.split(config.workspace_root.name + "/", 1)[1]
+        return config.workspace_root / path
 
     async def execute(self, **kwargs) -> ToolResult:
         command = kwargs.get("command")
