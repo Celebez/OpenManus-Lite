@@ -25,17 +25,18 @@ class StrReplaceEditor(BaseTool):
 
     def _resolve(self, path: str) -> Path:
         p = Path(path)
-        if p.is_absolute():
-            return p
-        # Avoid double-prefixing when the model already includes the workspace dir
+        if not p.is_absolute():
+            p = config.workspace_root / p
+        # Resolve .. and symlinks, then enforce workspace containment
         try:
-            p.relative_to(config.workspace_root)
-            return p
-        except ValueError:
-            pass
-        if config.workspace_root.name and path.startswith(config.workspace_root.name + "/"):
-            return config.workspace_root / path.split(config.workspace_root.name + "/", 1)[1]
-        return config.workspace_root / path
+            resolved = p.resolve()
+            ws = config.workspace_root.resolve()
+            if not str(resolved).startswith(str(ws)):
+                # Allow the project root for config access but block outside
+                raise ValueError(f"Path escapes workspace: {resolved}")
+        except (ValueError, OSError) as e:
+            raise ValueError(f"Path not allowed: {path} ({e})")
+        return resolved
 
     async def execute(self, **kwargs) -> ToolResult:
         command = kwargs.get("command")

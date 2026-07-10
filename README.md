@@ -557,6 +557,20 @@ Termux notes:
 
 ---
 
+## Security considerations
+
+- **Code & shell tools are unsandboxed by design.** `python_execute` uses
+  `exec()` and `bash` runs shell commands directly — the agent can access the
+  filesystem, network, and OS. This mirrors the original OpenManus behaviour.
+  Run inside a container or VM if you need isolation.
+- **Path traversal is blocked** in `str_replace_editor`: all file paths are
+  resolved and confined to the `workspace/` directory. Attempts to escape via
+  `../` or absolute paths outside workspace are rejected.
+- **API keys are never committed.** `config/config.toml` is gitignored. The
+  example file uses placeholder values only (`sk-...`, `nvapi-...`).
+- **No key has ever entered git history.** Verified via `git log --all -p`.
+- **Dependencies are clean.** `pip-audit` reports zero known vulnerabilities.
+
 ## Limitations
 
 - `config.toml` (with your API key) must never be committed; it is gitignored.
