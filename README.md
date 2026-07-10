@@ -14,6 +14,49 @@
   <img src="assets/demo.gif" width="480" alt="OpenManus-Lite demo"/>
 </p>
 
+<p align="center">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"/></a>
+  <img src="https://img.shields.io/badge/Open%20Source-Yes-green.svg" alt="Open Source: Yes"/>
+  <img src="https://img.shields.io/badge/Python-3.11%2B-blue.svg" alt="Python 3.11+"/>
+  <a href="https://github.com/Celebez/OpenManus-Lite"><img src="https://img.shields.io/github/stars/Celebez/OpenManus-Lite?style=social" alt="GitHub stars"/></a>
+</p>
+
+---
+
+## Open Source Status
+
+**Yes — OpenManus-Lite is fully open source.** The complete source code is
+public on GitHub under the **MIT License** (see [LICENSE](LICENSE)). MIT is an
+OSI-approved open-source license: anyone may use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell the software freely, as long as the
+copyright notice and license text are retained.
+
+What "open source" means here, concretely:
+
+- ✅ Source code is public and readable end-to-end (~1,000 lines).
+- ✅ You can fork, modify, and redistribute it.
+- ✅ No license fee, no invite code, no paywall.
+- ✅ Contributions are welcome (see [CONTRIBUTING](CONTRIBUTING.md)).
+
+### Why there is no "certificate"
+
+A **certificate** (sertifikat) is issued by *courses, bootcamps, or paid
+programs* after a learner completes material — it is a credential, not a
+property of software. OpenManus-Lite is a **software library / framework**, not
+a training course, so it does not (and should not) ship a certificate. If you
+want to use this repo *as teaching material* for a bootcamp, you are free to do
+so under the MIT license, and your bootcamp can issue its own certificate
+separately — that is outside the scope of the code itself.
+
+### Project health files
+
+| File | Purpose |
+|------|---------|
+| [LICENSE](LICENSE) | MIT license text (full, OSI-approved) |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | How to contribute |
+| [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) | Community standards (Contributor Covenant) |
+| [README.md](README.md) | Full documentation |
+
 ---
 
 ## Table of Contents
@@ -455,6 +498,9 @@ this software and associated documentation files (the "Software"), to deal in
 the Software without restriction, including the rights to use, copy, modify,
 merge, publish, distribute, sublicense, and/or sell copies of the Software,
 subject to the conditions in [LICENSE](LICENSE).
+
+Community guidelines: [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) ·
+Contributing: [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## Acknowledgements
 
