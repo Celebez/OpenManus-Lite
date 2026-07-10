@@ -67,6 +67,10 @@ class Browser(BaseTool):
                 if not url:
                     return self.fail_response("navigate requires 'url'")
                 await page.goto(url, wait_until="load", timeout=30000)
+                try:
+                    await page.wait_for_load_state("networkidle", timeout=5000)
+                except Exception:
+                    pass
                 return self.success_response(f"Navigated to {url}")
             if action == "click":
                 if not selector:

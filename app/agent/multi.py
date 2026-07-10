@@ -117,12 +117,17 @@ class Supervisor(Manus):
 
     async def think(self) -> bool:
         """Supervisor decides: delegate to a sub-agent, finish, or act."""
-        response = await self.llm.ask_tool(
-            messages=self.memory.messages,
-            system_msgs=[Message.system_message(self.system_prompt)],
-            tools=[DelegateTool().to_param(), FinishTool().to_param()],
-            tool_choice=ToolChoice.AUTO if hasattr(self, "tool_choices") else None,
-        )
+        try:
+            response = await self.llm.ask_tool(
+                messages=self.memory.messages,
+                system_msgs=[Message.system_message(self.system_prompt)],
+                tools=[DelegateTool().to_param(), FinishTool().to_param()],
+                tool_choice=ToolChoice.AUTO,
+            )
+        except Exception as e:
+            logger.error(f"Supervisor LLM error: {e}")
+            self.state = AgentState.FINISHED
+            return False
         self.tool_calls = response.tool_calls if response and response.tool_calls else []
         content = response.content if response and response.content else ""
         if self.tool_calls:
@@ -149,6 +154,10 @@ class Supervisor(Manus):
         command = self.tool_calls[0]
         name = command.function.name
         args = json.loads(command.function.arguments or "{}")
+        if name == "finish":
+            self.state = AgentState.FINISHED
+            self._final_summary = args.get("summary", "")
+            return self._final_summary or "Task finished."
         if name == "delegate":
             result = await self._delegate(args.get("agent", ""), args.get("task", ""))
             self.memory.add_message(

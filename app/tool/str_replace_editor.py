@@ -30,7 +30,7 @@ class StrReplaceEditor(BaseTool):
         # Avoid double-prefixing when the model already includes the workspace dir
         try:
             p.relative_to(config.workspace_root)
-            return config.workspace_root / path
+            return p
         except ValueError:
             pass
         if config.workspace_root.name and path.startswith(config.workspace_root.name + "/"):

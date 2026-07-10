@@ -35,8 +35,9 @@ if __name__ == "__main__":
         if config_needs_setup():
             print("No API configuration found. Starting setup...\n")
             run_setup()
-            # restart interpreter config by re-importing
+            # reload config so the freshly written file is picked up
             import importlib
+
             import app.config as _cfg
 
             importlib.reload(_cfg)

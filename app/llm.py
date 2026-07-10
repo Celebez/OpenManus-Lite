@@ -59,17 +59,20 @@ class LLM:
             "temperature": temperature if temperature is not None else self.temperature,
             "max_tokens": self.max_tokens,
         }
-        if stream:
-            resp = await self.client.chat.completions.create(**params, stream=True)
-            chunks = []
-            async for chunk in resp:
-                delta = chunk.choices[0].delta.content or ""
-                chunks.append(delta)
-                print(delta, end="", flush=True)
-            print()
-            return "".join(chunks).strip()
-        resp = await self.client.chat.completions.create(**params, stream=False)
-        return resp.choices[0].message.content
+        try:
+            if stream:
+                resp = await self.client.chat.completions.create(**params, stream=True)
+                chunks = []
+                async for chunk in resp:
+                    delta = chunk.choices[0].delta.content or ""
+                    chunks.append(delta)
+                    print(delta, end="", flush=True)
+                print()
+                return "".join(chunks).strip()
+            resp = await self.client.chat.completions.create(**params, stream=False)
+            return resp.choices[0].message.content
+        except Exception as e:  # network / auth / rate-limit
+            raise RuntimeError(f"LLM request failed: {e}") from e
 
     async def ask_tool(
         self,
@@ -88,8 +91,12 @@ class LLM:
             "messages": messages,
             "tools": tools,
             "tool_choice": tool_choice.value if isinstance(tool_choice, ToolChoice) else tool_choice,
+            "max_tokens": self.max_tokens,
         }
-        resp = await self.client.chat.completions.create(**params)
+        try:
+            resp = await self.client.chat.completions.create(**params)
+        except Exception as e:  # network / auth / rate-limit
+            raise RuntimeError(f"LLM tool request failed: {e}") from e
         msg = resp.choices[0].message
 
         class _Result:
