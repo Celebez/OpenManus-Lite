@@ -1,1 +1,1 @@
-"""OpenManus-Lite: a minimal general-purpose AI agent framework."""
+"""OpenManus-Lite: a lightweight, open-source general-purpose AI agent framework."""

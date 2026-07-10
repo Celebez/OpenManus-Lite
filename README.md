@@ -5,9 +5,9 @@
 </p>
 
 <p align="center">
-  A minimal, faithful re-implementation of the
-  <a href="https://github.com/FoundationAgents/OpenManus">OpenManus</a>
-  general-purpose AI agent framework.
+  A lightweight, open-source
+  general-purpose AI agent framework
+  with a think&ndash;act tool-calling loop.
 </p>
 
 <p align="center">
@@ -101,11 +101,11 @@ use case:
 
 ## What is OpenManus-Lite?
 
-OpenManus-Lite is a **compact, readable re-implementation** of the
-[OpenManus](https://github.com/FoundationAgents/OpenManus) general-purpose AI
-agent. It keeps the exact same core idea — an agent that loops *think → act*
-until a task is finished — but in roughly 1,000 lines of clean Python instead
-of the full production codebase.
+OpenManus-Lite is a **compact, readable general-purpose AI agent framework**.
+It implements the core idea of an agent that loops *think → act*
+until a task is finished, in roughly 1,000 lines of clean Python — inspired by
+the architecture of [OpenManus](https://github.com/FoundationAgents/OpenManus)
+but built as a standalone, self-contained project.
 
 It is meant as a **learning scaffold**: if you want to understand how an
 agentic "do anything" loop actually works under the hood, this repository is
