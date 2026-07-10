@@ -85,7 +85,6 @@ separately — that is outside the scope of the code itself.
 - [Limitations](#limitations)
 - [Roadmap](#roadmap)
 - [License](#license)
-- [Acknowledgements](#acknowledgements)
 
 ---
 
@@ -501,10 +500,3 @@ subject to the conditions in [LICENSE](LICENSE).
 
 Community guidelines: [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) ·
 Contributing: [CONTRIBUTING.md](CONTRIBUTING.md)
-
-## Acknowledgements
-
-- The original [OpenManus](https://github.com/FoundationAgents/OpenManus) by
-  the FoundationAgents / MetaGPT team — this project is a study re-implementation.
-- [browser-use](https://github.com/browser-use/browser-use) and
-  [MetaGPT](https://github.com/geekan/MetaGPT) for the foundational ideas.
