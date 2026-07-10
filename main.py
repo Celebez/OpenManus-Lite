@@ -1,15 +1,24 @@
 """Application entry point."""
+import argparse
 import asyncio
 import sys
 
-from app.agent.manus import Manus
 from app.config import config
 from app.logger import logger
 from app.setup import config_needs_setup, run_setup
 
 
-async def main(prompt: str = None):
-    agent = Manus()
+async def main(prompt: str = None, use_supervisor: bool = False):
+    if use_supervisor:
+        from app.agent.multi import Supervisor
+
+        agent = Supervisor()
+        logger.info("Starting in multi-agent (Supervisor) mode.")
+    else:
+        from app.agent.manus import Manus
+
+        agent = Manus()
+        logger.info("Starting in single-agent (Manus) mode.")
     try:
         prompt = prompt or input("Enter your prompt: ")
         if not prompt.strip():
@@ -25,12 +34,28 @@ async def main(prompt: str = None):
         await agent.cleanup()
 
 
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description="OpenManus-Lite: a lightweight AI agent framework."
+    )
+    parser.add_argument("--setup", action="store_true", help="Run interactive setup wizard.")
+    parser.add_argument(
+        "--multi",
+        action="store_true",
+        help="Use multi-agent Supervisor mode (routes to specialised sub-agents).",
+    )
+    parser.add_argument("--prompt", "-p", type=str, default=None, help="Task prompt (skip interactive input).")
+    return parser.parse_args()
+
+
 if __name__ == "__main__":
-    if "--setup" in sys.argv:
+    args = parse_args()
+
+    if args.setup:
         run_setup()
         sys.exit(0)
 
-    # Auto-run interactive setup if no usable config exists (Hermes-style).
+    # Auto-run interactive setup if no usable config exists.
     try:
         if config_needs_setup():
             print("No API configuration found. Starting setup...\n")
@@ -46,4 +71,4 @@ if __name__ == "__main__":
         logger.error(f"Setup failed: {e}")
         sys.exit(1)
 
-    asyncio.run(main())
+    asyncio.run(main(prompt=args.prompt, use_supervisor=args.multi))

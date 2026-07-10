@@ -3,15 +3,15 @@
 Uses a fake LLM so the agent loop runs deterministically without network.
 """
 import asyncio
-import sys
-import os
 import json
+import os
+import sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from app.tool.browser import Browser
 from app.agent.multi import CodingAgent, Supervisor
 from app.llm import LLM
+from app.tool.browser import Browser
 
 
 class FakeLLM(LLM):
@@ -25,7 +25,7 @@ class FakeLLM(LLM):
         self.api_key = "fake"
 
     async def ask_tool(self, *a, **kw):
-        from app.schema import Message, ToolCall, Function, Role
+        from app.schema import Function, Message, Role, ToolCall
 
         item = self._script.pop(0)
         if item is None:  # final text

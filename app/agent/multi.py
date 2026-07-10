@@ -10,19 +10,19 @@ from __future__ import annotations
 import json
 from typing import Dict, List
 
-from app.agent.toolcall import ToolCallAgent
 from app.agent.manus import Manus
+from app.agent.toolcall import ToolCallAgent
 from app.logger import logger
 from app.prompt import SupervisorPrompt
-from app.schema import Message, AgentState, Role, ToolChoice
+from app.schema import AgentState, Message, Role, ToolChoice
 from app.tool import (
-    ToolCollection,
-    Terminate,
-    PythonExecute,
     Bash,
-    StrReplaceEditor,
     Browser,
     CreateChatCompletion,
+    PythonExecute,
+    StrReplaceEditor,
+    Terminate,
+    ToolCollection,
 )
 from app.tool.base import BaseTool, ToolResult
 

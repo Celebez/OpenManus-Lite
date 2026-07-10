@@ -8,9 +8,9 @@ from app.prompt.manus import NEXT_STEP_PROMPT, SYSTEM_PROMPT
 from app.tool import Terminate, ToolCollection
 from app.tool.ask_human import AskHuman
 from app.tool.bash import Bash
+from app.tool.browser import Browser
 from app.tool.python_execute import PythonExecute
 from app.tool.str_replace_editor import StrReplaceEditor
-from app.tool.browser import Browser
 
 
 class Manus(ToolCallAgent):

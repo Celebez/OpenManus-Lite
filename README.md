@@ -443,24 +443,48 @@ model it offers, so you never have to guess or memorize a model id.
 
 ## Usage
 
+### Single-agent mode (default)
+
 ```bash
 python main.py
 # then type your task at the prompt
+
+# or pass a prompt directly:
+python main.py -p "List the files in the workspace and count them"
 ```
 
-Non-interactive example:
+### Multi-agent mode (Supervisor)
+
+Routes tasks to specialised sub-agents (coding, research, browser):
+
+```bash
+python main.py --multi -p "Research the latest Python release and summarise key changes"
+```
+
+### Non-interactive (Python script)
 
 ```python
 import asyncio
 from app.agent.manus import Manus
+# or: from app.agent.multi import Supervisor
 
 async def main():
-    agent = Manus()
+    agent = Manus()        # or Supervisor()
     result = await agent.run("List the files in the workspace and count them")
     print(result)
+    await agent.cleanup()
 
 asyncio.run(main())
 ```
+
+### CLI flags
+
+| Flag | Description |
+|------|-------------|
+| `--setup` | Run interactive setup wizard (base URL, API key, auto-detect models) |
+| `--multi` | Use Supervisor (multi-agent) instead of Manus (single-agent) |
+| `-p / --prompt` | Pass task prompt directly (skip interactive input) |
+| `-h / --help` | Show help |
 
 ---
 

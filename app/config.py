@@ -1,10 +1,9 @@
 """Configuration loader (TOML)."""
-import tomllib
 from pathlib import Path
 from typing import Dict, Optional
 
+import tomllib
 from pydantic import BaseModel, Field
-
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 WORKSPACE_ROOT = PROJECT_ROOT / "workspace"
