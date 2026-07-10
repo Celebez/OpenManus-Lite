@@ -1,5 +1,19 @@
 # OpenManus-Lite
 
+<p align="center">
+  <img src="assets/logo.svg" width="200" alt="OpenManus-Lite logo"/>
+</p>
+
+<p align="center">
+  A minimal, faithful re-implementation of the
+  <a href="https://github.com/FoundationAgents/OpenManus">OpenManus</a>
+  general-purpose AI agent framework.
+</p>
+
+<p align="center">
+  <img src="assets/demo.gif" width="480" alt="OpenManus-Lite demo"/>
+</p>
+
 A minimal, faithful re-implementation of the [OpenManus](https://github.com/FoundationAgents/OpenManus) general-purpose AI agent framework. Built as a learning/reference project after studying the original codebase.
 
 OpenManus-Lite keeps the same core architecture — a step-based agent loop that calls an LLM with a tool collection until the task is done — but in a compact, readable form.
@@ -64,4 +78,10 @@ This is a learning scaffold — it demonstrates the exact think→act loop that 
 
 ## License
 
-MIT
+Licensed under the [MIT License](LICENSE).
+
+```
+Copyright (c) 2026 Celebez
+```
+
+See [LICENSE](LICENSE) for the full text.

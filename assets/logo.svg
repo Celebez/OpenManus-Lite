@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="0 0 320 320" fill="none">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="42%" r="70%">
+      <stop offset="0%" stop-color="#0b1a3a"/>
+      <stop offset="100%" stop-color="#050816"/>
+    </radialGradient>
+    <linearGradient id="ring" x1="40" y1="60" x2="280" y2="260" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#21e99a"/>
+      <stop offset="1" stop-color="#FFD166"/>
+    </linearGradient>
+  </defs>
+  <rect width="320" height="320" rx="36" fill="url(#bg)"/>
+  <!-- infinity / terminal-cursor loop -->
+  <path d="M160 90 C110 90 96 160 160 160 C224 160 210 230 160 230 C110 230 96 160 160 160 C224 160 210 90 160 90 Z"
+        stroke="url(#ring)" stroke-width="12" stroke-linecap="round" fill="none"/>
+  <!-- cursor block -->
+  <rect x="150" y="200" width="20" height="26" rx="3" fill="#21e99a"/>
+  <!-- glow dots -->
+  <circle cx="160" cy="90" r="9" fill="#FFD166"/>
+  <circle cx="160" cy="230" r="9" fill="#21e99a"/>
+  <text x="160" y="300" text-anchor="middle" font-family="monospace" font-size="20" fill="#cfe8ff" opacity="0.85">OpenManus-Lite</text>
+</svg>
