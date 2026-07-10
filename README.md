@@ -388,11 +388,32 @@ pip install -r requirements.txt
 
 ```bash
 cp config/config.example.toml config/config.toml
+## Configuration
+
+OpenManus-Lite is OpenAI-compatible, so **you use your own AI provider** — you
+do **not** need to run a local server. There are two ways to configure it:
+
+### Option A — Interactive setup (recommended)
+
+Just run the setup wizard. It asks for your provider's **base URL** and **API
+key**, then **auto-detects the available models** from the provider and lets
+you pick one:
+
+```bash
+python main.py --setup
 ```
 
-Edit `config.toml` with **your own AI provider** (OpenManus-Lite is
-OpenAI-compatible, so any provider that exposes an OpenAI-style `/v1` endpoint
-works — you do **not** need to run a local server):
+The wizard writes everything to `config/config.toml`. If you run `python main.py`
+with no configuration present, the setup wizard launches automatically
+(Hermes-style).
+
+### Option B — Manual `config.toml`
+
+Copy the example and edit it:
+
+```bash
+cp config/config.example.toml config/config.toml
+```
 
 ```toml
 [llm]
@@ -415,6 +436,10 @@ api_type = "openai"
 > You only need a `base_url` / `api_key` / `model` for the provider **you**
 > already have an account with. A local server (e.g. vLLM on
 > `http://localhost:8000/v1`) is optional, not required.
+
+**Auto model detection:** when you use the interactive setup, OpenManus-Lite
+calls your provider's `/v1/models` endpoint (OpenAI-compatible) and lists every
+model it offers, so you never have to guess or memorize a model id.
 
 ## Usage
 
