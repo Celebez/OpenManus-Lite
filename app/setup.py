@@ -8,7 +8,6 @@ reloaded so the agent can start immediately.
 from __future__ import annotations
 
 import sys
-from pathlib import Path
 
 from openai import OpenAI
 
