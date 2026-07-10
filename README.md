@@ -38,16 +38,6 @@ What "open source" means here, concretely:
 - ✅ No license fee, no invite code, no paywall.
 - ✅ Contributions are welcome (see [CONTRIBUTING](CONTRIBUTING.md)).
 
-### Why there is no "certificate"
-
-A **certificate** (sertifikat) is issued by *courses, bootcamps, or paid
-programs* after a learner completes material — it is a credential, not a
-property of software. OpenManus-Lite is a **software library / framework**, not
-a training course, so it does not (and should not) ship a certificate. If you
-want to use this repo *as teaching material* for a bootcamp, you are free to do
-so under the MIT license, and your bootcamp can issue its own certificate
-separately — that is outside the scope of the code itself.
-
 ### Project health files
 
 | File | Purpose |
@@ -56,6 +46,24 @@ separately — that is outside the scope of the code itself.
 | [CONTRIBUTING.md](CONTRIBUTING.md) | How to contribute |
 | [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) | Community standards (Contributor Covenant) |
 | [README.md](README.md) | Full documentation |
+
+### Available licenses
+
+OpenManus-Lite is distributed under the **MIT License** by default. If your
+project requires different terms, the following alternative licenses are also
+provided in the [`LICENSES/`](LICENSES) directory — pick the one that fits your
+use case:
+
+| License | File | Type | Highlights |
+|---------|------|------|-----------|
+| MIT | [LICENSE](LICENSE) | Permissive | Short, maximum freedom, no patent clause. **Default.** |
+| Apache-2.0 | [LICENSES/LICENSE.apache-2.0](LICENSES/LICENSE.apache-2.0) | Permissive | Adds explicit patent grant + attribution notices. |
+| BSD-3-Clause | [LICENSES/LICENSE.bsd-3-clause](LICENSES/LICENSE.bsd-3-clause) | Permissive | Like MIT, bars use of contributor names for endorsement. |
+| GPL-3.0 | [LICENSES/LICENSE.gpl-3.0](LICENSES/LICENSE.gpl-3.0) | Copyleft | Strong copyleft; derivative works must stay GPL-3.0. |
+
+> Note: These are provided as options. Unless you explicitly state otherwise,
+> the project itself is released under **MIT**. Choose one license and replace
+> the root `LICENSE` file if you redistribute under different terms.
 
 ---
 
