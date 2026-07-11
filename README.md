@@ -385,6 +385,35 @@ python main.py -p "Summarise https://example.com"
 Core tools (python, bash, file editor, chat completion, terminate) work
 everywhere Python 3.11+ runs.
 
+## Memory / state storage (optional)
+
+By default OpenManus-Lite keeps **no durable memory** — each run is fresh
+(in-memory, ephemeral, zero setup). If you want the agent to remember things
+across runs (notes, user prefs, a knowledge base), plug in a storage backend:
+
+```toml
+# config.toml
+[store]
+type = "sqlite"                 # "memory" (default) | "sqlite" | your own
+options = { path = "memory.db" }   # backend-specific options
+```
+
+Or via env (no file editing):
+
+```bash
+export OML_STORE_TYPE=sqlite
+export OML_STORE_PATH=memory.db
+```
+
+Built-in backends:
+- `memory` — default, ephemeral, nothing persisted.
+- `sqlite` — file-backed via stdlib `sqlite3`, no extra deps.
+
+**Bring your own**: subclass `StoreBackend` in `app/store.py` (implement
+`get/set/delete/keys`) and register it in `STORE_BACKENDS` — Postgres, Redis,
+a vector DB, a JSON file tree, anything. The framework never forces a backend,
+so local users run with zero config and advanced users extend freely.
+
 ## Configuration
 
 ```bash

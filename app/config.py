@@ -1,6 +1,6 @@
 """Configuration loader (TOML)."""
 from pathlib import Path
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 
 import tomllib
 from pydantic import BaseModel, Field
@@ -25,9 +25,15 @@ class SandboxSettings(BaseModel):
     timeout: int = 300
 
 
+class StoreSettings(BaseModel):
+    type: str = "memory"
+    options: Dict[str, Any] = Field(default_factory=dict)
+
+
 class AppConfig(BaseModel):
     llm: Dict[str, LLMSettings] = Field(default_factory=dict)
     sandbox: Optional[SandboxSettings] = None
+    store: Optional[StoreSettings] = None
 
 
 class Config:
@@ -58,7 +64,8 @@ class Config:
                 merged = {**default, **cfg}
                 llm[name] = LLMSettings(**merged)
         sandbox = SandboxSettings(**raw["sandbox"]) if raw.get("sandbox") else None
-        return Config._apply_env(AppConfig(llm=llm, sandbox=sandbox))
+        store = StoreSettings(**raw["store"]) if raw.get("store") else None
+        return Config._apply_env(AppConfig(llm=llm, sandbox=sandbox, store=store))
 
     @staticmethod
     def _apply_env(cfg: "AppConfig") -> "AppConfig":

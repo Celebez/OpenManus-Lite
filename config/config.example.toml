@@ -11,3 +11,11 @@ api_type = "openai"
 [sandbox]
 use_sandbox = false
 timeout = 300
+
+# Optional durable memory / state storage.
+# type: "memory" (default, ephemeral, no setup) | "sqlite" (file, stdlib) | <custom>
+# Users can add their own backend (Postgres, Redis, vector DB, file tree, etc.)
+# by subclassing StoreBackend in app/store.py and registering it in STORE_BACKENDS.
+[store]
+type = "memory"
+# options for the chosen backend, e.g. for sqlite: { path = "memory.db" }
