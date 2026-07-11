@@ -23,8 +23,14 @@ from app.tool import (
     StrReplaceEditor,
     Terminate,
     ToolCollection,
+    WebFetch,
 )
 from app.tool.base import BaseTool, ToolResult
+
+# Lightweight fallback when Playwright/Chromium isn't installed (Termux).
+from app.tool import BROWSER_AVAILABLE
+
+_WEB_TOOL = Browser() if BROWSER_AVAILABLE else WebFetch()
 
 
 class CodingAgent(ToolCallAgent):
@@ -41,7 +47,7 @@ class ResearchAgent(ToolCallAgent):
     description: str = "Browses the web, reads pages, and summarises findings."
     system_prompt: str = SupervisorPrompt.RESEARCH
     available_tools: ToolCollection = ToolCollection(
-        Browser(), CreateChatCompletion(), Terminate()
+        _WEB_TOOL, CreateChatCompletion(), Terminate()
     )
 
 
@@ -50,7 +56,7 @@ class BrowserAgent(ToolCallAgent):
     description: str = "Drives a real browser to navigate, click, type, screenshot."
     system_prompt: str = SupervisorPrompt.BROWSER
     available_tools: ToolCollection = ToolCollection(
-        Browser(), CreateChatCompletion(), Terminate()
+        _WEB_TOOL, CreateChatCompletion(), Terminate()
     )
 
 

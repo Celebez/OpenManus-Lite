@@ -8,9 +8,15 @@ from app.prompt.manus import NEXT_STEP_PROMPT, SYSTEM_PROMPT
 from app.tool import Terminate, ToolCollection
 from app.tool.ask_human import AskHuman
 from app.tool.bash import Bash
-from app.tool.browser import Browser
 from app.tool.python_execute import PythonExecute
 from app.tool.str_replace_editor import StrReplaceEditor
+from app.tool.webfetch import WebFetch
+
+# Use the real browser only if Playwright/Chromium is available; otherwise
+# fall back to the lightweight zero-dependency web fetcher (Termux, etc.).
+from app.tool import BROWSER_AVAILABLE, Browser
+
+_WEB_TOOL = Browser() if BROWSER_AVAILABLE else WebFetch()
 
 
 class Manus(ToolCallAgent):
@@ -28,7 +34,7 @@ class Manus(ToolCallAgent):
             PythonExecute(),
             Bash(),
             StrReplaceEditor(),
-            Browser(),
+            _WEB_TOOL,
             AskHuman(),
             Terminate(),
         )

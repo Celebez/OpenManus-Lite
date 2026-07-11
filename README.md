@@ -368,6 +368,23 @@ source .venv/bin/activate        # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
+### On Termux / minimal environments
+
+Playwright + Chromium is heavy and often fails to install on Termux.
+OpenManus-Lite falls back to a **zero-dependency web fetcher** automatically:
+
+- If `playwright` is not installed, the `browser` tool is replaced by
+  `web_fetch` (stdlib-only: fetches a URL, returns cleaned text or JSON).
+- You can also force this mode explicitly:
+
+```bash
+export OML_NO_BROWSER=1
+python main.py -p "Summarise https://example.com"
+```
+
+Core tools (python, bash, file editor, chat completion, terminate) work
+everywhere Python 3.11+ runs.
+
 ## Configuration
 
 ```bash
