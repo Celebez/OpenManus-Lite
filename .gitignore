@@ -15,3 +15,7 @@ workspace/
 *.swo
 dist/
 build/
+
+# local sqlite store (user-created)
+memory.db
+*.db
