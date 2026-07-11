@@ -1,6 +1,7 @@
 """Application entry point."""
 import argparse
 import asyncio
+import os
 import sys
 
 from app.config import config
@@ -56,8 +57,13 @@ if __name__ == "__main__":
         sys.exit(0)
 
     # Auto-run interactive setup if no usable config exists.
+    # Env-only mode: OML_API_KEY + OML_BASE_URL + OML_MODEL let you skip the
+    # wizard entirely (zero file editing). If those are present we don't prompt.
+    env_configured = all(
+        os.environ.get(k) for k in ("OML_API_KEY", "OML_BASE_URL", "OML_MODEL")
+    )
     try:
-        if config_needs_setup():
+        if not env_configured and config_needs_setup():
             print("No API configuration found. Starting setup...\n")
             run_setup()
             # reload config so the freshly written file is picked up

@@ -8,6 +8,8 @@ from pydantic import BaseModel, Field
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 WORKSPACE_ROOT = PROJECT_ROOT / "workspace"
 
+import os
+
 
 class LLMSettings(BaseModel):
     model: str = "gpt-4o"
@@ -56,7 +58,30 @@ class Config:
                 merged = {**default, **cfg}
                 llm[name] = LLMSettings(**merged)
         sandbox = SandboxSettings(**raw["sandbox"]) if raw.get("sandbox") else None
-        return AppConfig(llm=llm, sandbox=sandbox)
+        return Config._apply_env(AppConfig(llm=llm, sandbox=sandbox))
+
+    @staticmethod
+    def _apply_env(cfg: "AppConfig") -> "AppConfig":
+        """Allow environment overrides so install needs zero file editing.
+
+        Mirrors a Hermes-style setup: set env vars instead of hand-editing
+        config.toml. Anything already in the file wins unless the env var is set.
+        """
+        d = cfg.llm.get("default")
+        if d is None:
+            d = LLMSettings()
+            cfg.llm["default"] = d
+        if os.environ.get("OML_BASE_URL"):
+            d.base_url = os.environ["OML_BASE_URL"]
+        if os.environ.get("OML_API_KEY"):
+            d.api_key = os.environ["OML_API_KEY"]
+        if os.environ.get("OML_MODEL"):
+            d.model = os.environ["OML_MODEL"]
+        if os.environ.get("OML_MAX_TOKENS"):
+            d.max_tokens = int(os.environ["OML_MAX_TOKENS"])
+        if os.environ.get("OML_TEMPERATURE"):
+            d.temperature = float(os.environ["OML_TEMPERATURE"])
+        return cfg
 
     @property
     def llm(self) -> Dict[str, LLMSettings]:

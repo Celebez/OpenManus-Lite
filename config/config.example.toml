@@ -1,27 +1,13 @@
-# Global LLM configuration
-# OpenManus-Lite is OpenAI-compatible: use YOUR OWN AI provider.
-# Just set base_url + api_key + model for the provider you have an account with.
-
+# OpenManus-Lite configuration (example — copy to config.toml and edit,
+# or just run `python main.py` and the setup wizard writes it for you).)
 [llm]
-# --- Default: OpenAI ---
-model = "gpt-4o"
 base_url = "https://api.openai.com/v1"
-api_key = "sk-..."          # your OpenAI key
+api_key = "sk-..."
+model = "gpt-4o"
 max_tokens = 4096
 temperature = 0.0
 api_type = "openai"
 
-# --- Alternative: NVIDIA NIM (OpenAI-compatible) ---
-# model = "nvidia/nemotron-3-super-120b-a12b"
-# base_url = "https://integrate.api.nvidia.com/v1"
-# api_key = "nvapi-..."       # your NVIDIA key
-
-# --- Alternative: any OpenAI-compatible gateway ---
-# model = "your-model-name"
-# base_url = "https://your-provider.example.com/v1"
-# api_key = "your-key"
-
-# Optional execution sandbox
 [sandbox]
 use_sandbox = false
 timeout = 300
