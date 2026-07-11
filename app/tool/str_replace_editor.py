@@ -27,12 +27,14 @@ class StrReplaceEditor(BaseTool):
         p = Path(path)
         if not p.is_absolute():
             p = config.workspace_root / p
-        # Resolve .. and symlinks, then enforce workspace containment
+        # Resolve .. and symlinks, then enforce strict workspace containment.
         try:
             resolved = p.resolve()
             ws = config.workspace_root.resolve()
-            if not str(resolved).startswith(str(ws)):
-                # Allow the project root for config access but block outside
+            # Must be exactly the workspace root or a real descendant of it.
+            # Using `startswith` alone is unsafe: "workspace_evil" would match
+            # the prefix "workspace".
+            if resolved != ws and ws not in resolved.parents:
                 raise ValueError(f"Path escapes workspace: {resolved}")
         except (ValueError, OSError) as e:
             raise ValueError(f"Path not allowed: {path} ({e})")

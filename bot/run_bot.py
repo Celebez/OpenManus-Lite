@@ -38,15 +38,33 @@ def get_mode() -> str:
 
 
 def build_agent():
-    """Create a fresh agent per task so memory/state never bleed across chats."""
+    """Create a fresh agent per task so memory/state never bleed across chats.
+
+    AskHuman is stripped in bot mode: there is no interactive stdin, so calling
+    it would hang the bot forever. Replaced with a tool that returns an error.
+    """
+    from app.tool import ToolCollection, Terminate
+    from app.tool.ask_human import AskHuman
+
+    class AskHumanDisabled(AskHuman):
+        async def execute(self, question: str):  # type: ignore[override]
+            return self.fail_response(
+                "ask_human is disabled in bot mode (no interactive stdin)."
+            )
+
     mode = get_mode()
     if mode == "multi":
         from app.agent.multi import Supervisor
 
-        return Supervisor()
-    from app.agent.manus import Manus
+        agent = Supervisor()
+    else:
+        from app.agent.manus import Manus
 
-    return Manus()
+        agent = Manus()
+
+    # Swap the bundled AskHuman for the disabled variant.
+    agent.available_tools.tool_map["ask_human"] = AskHumanDisabled()
+    return agent
 
 
 async def run_agent(prompt: str) -> str:
@@ -185,6 +203,13 @@ def main():
 
     guilds = {int(g) for g in os.environ.get("ALLOWED_DISCORD_GUILDS", "").split(",") if g.strip()}
     users = {int(u) for u in os.environ.get("ALLOWED_TELEGRAM_USERS", "").split(",") if u.strip()}
+
+    # Production safety: refuse to listen if access control is wide open.
+    prod = os.environ.get("OML_PROD", "").lower() in ("1", "true", "yes")
+    if prod and not guilds and not users:
+        print("❌ OML_PROD=1 but no ALLOWED_DISCORD_GUILDS / ALLOWED_TELEGRAM_USERS set.")
+        print("   Set at least one allow-list, or run without OML_PROD for open testing.")
+        sys.exit(1)
 
     print(f"[bot] mode={get_mode()}, discord={'on' if dc_token else 'off'}, telegram={'on' if tg_token else 'off'}")
 

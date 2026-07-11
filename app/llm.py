@@ -66,8 +66,6 @@ class LLM:
                 async for chunk in resp:
                     delta = chunk.choices[0].delta.content or ""
                     chunks.append(delta)
-                    print(delta, end="", flush=True)
-                print()
                 return "".join(chunks).strip()
             resp = await self.client.chat.completions.create(**params, stream=False)
             return resp.choices[0].message.content
